@@ -1,0 +1,16 @@
+[package]
+name = "zerochain"
+version = "0.1.0"
+build = "build.rs"
+
+[lib]
+name = "zerochain"
+crate-type = ["cdylib"]
+
+[build-dependencies]
+neon-build = "0.3.1"
+
+[dependencies]
+neon = "0.3.1"
+num_cpus = "1.4.0"
+zface = { git = "https://github.com/LayerXcom/zero-chain", branch = "wallet-desktop"}
