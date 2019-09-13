@@ -1,6 +1,5 @@
 #[macro_use]
 extern crate neon;
-extern crate dirs;
 use neon::prelude::*;
 use zface::wallet::config::INDEXFILE;
 mod helper;
