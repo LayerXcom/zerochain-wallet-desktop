@@ -19,3 +19,4 @@ zface = { git = "https://github.com/LayerXcom/zero-chain", branch = "wallet-desk
 zerochain-proofs = { git = "https://github.com/LayerXcom/zero-chain", branch = "wallet-desktop"}
 polkadot-rs = { git = "https://github.com/LayerXcom/polkadot.rs" }
 pairing = { git = "https://github.com/LayerXcom/librustzcash", branch = "zero-chain" }
+primitives = { package = "substrate-primitives", git = "https://github.com/osuketh/substrate", branch = "patch-zerochain" }

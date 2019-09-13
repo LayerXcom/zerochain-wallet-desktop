@@ -1,5 +1,7 @@
+#![allow(dead_code)]
+
 use rand::{OsRng, Rng};
-use zface::{config, term, wallet::*, error::Result, derive::*, transaction::*, utils::*};
+use zface::{config, term, wallet::*, error::Result, derive::*, transaction::*, utils::*, ss58};
 use zface::wallet::{
     config::*,
     commands::{
@@ -9,6 +11,7 @@ use zface::wallet::{
 use zerochain_proofs::DecryptionKey;
 use pairing::bls12_381::Bls12;
 use polkadot_rs::{Url, Api};
+use primitives::crypto::Ss58Codec;
 use std::path::PathBuf;
 
 const TEST_PASSWORD: &'static str = "zerochain";
@@ -52,15 +55,18 @@ pub fn new_wallet() -> Result<String> {
 }
 
 // Generate a extrinsic to send confidential transactions.
-pub fn create_tx(recipient_addr: Vec<u8>, amount: u32) -> Result<()> {
+pub fn submit_tx(recipient_addr: &str, amount: u32) -> Result<()> {
     let rng = &mut OsRng::new().expect("should be able to construct RNG");
     let root_dir = config::get_default_root_dir();
     let spending_key = spending_key_from_keystore(root_dir, TEST_PASSWORD.as_bytes())?;
     let url = Url::Local;
 
+    let recipient_enc_key = ss58::EncryptionKeyBytes::from_ss58check(recipient_addr)
+        .expect("The string should be a properly encoded SS58Check address.").0;
+
     inner_confidential_transfer_tx(
         spending_key,
-        &recipient_addr[..],
+        &recipient_enc_key[..],
         amount,
         url,
         CONF_PK_PATH,
