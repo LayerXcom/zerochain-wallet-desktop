@@ -1,18 +1,20 @@
 use rand::{OsRng, Rng};
-use zface::{config, term, wallet::*, error::Result, derive::*, transaction::*};
+use zface::{config, term, wallet::*, error::Result, derive::*, transaction::*, utils::*};
 use zface::wallet::{
     config::*,
     commands::{
-        Mnemonic, MnemonicType, Language, Seed, wallet_keystore_dirs, new_indexfile
+        Mnemonic, MnemonicType, Language, Seed, wallet_keystore_dirs, new_indexfile, get_default_keyfile_name,
     }
 };
-use polkadot_rs::Url;
+use zerochain_proofs::DecryptionKey;
+use pairing::bls12_381::Bls12;
+use polkadot_rs::{Url, Api};
+use std::path::PathBuf;
 
 const TEST_PASSWORD: &'static str = "zerochain";
 const TEST_ACCOUNTNAME: &'static str = "zerochain";
 const CONF_PK_PATH: &'static str = "./params/conf_pk.dat";
 const CONF_VK_PATH: &'static str = "./params/conf_vk.dat";
-const FEE: u32 = 1;
 
 // Initialize a new wallet. Returning a generated address encoded by SS58 format.
 pub fn new_wallet() -> Result<String> {
@@ -50,7 +52,7 @@ pub fn new_wallet() -> Result<String> {
 }
 
 // Generate a extrinsic to send confidential transactions.
-pub fn gen_tx(recipient_addr: Vec<u8>, amount: u32) -> Result<()> {
+pub fn create_tx(recipient_addr: Vec<u8>, amount: u32) -> Result<()> {
     let rng = &mut OsRng::new().expect("should be able to construct RNG");
     let root_dir = config::get_default_root_dir();
     let spending_key = spending_key_from_keystore(root_dir, TEST_PASSWORD.as_bytes())?;
@@ -65,6 +67,19 @@ pub fn gen_tx(recipient_addr: Vec<u8>, amount: u32) -> Result<()> {
         CONF_VK_PATH,
         rng
     )
+}
+
+// Get decrypted balance
+pub fn get_balance() -> u32 {
+    let api = Api::init(Url::Local);
+    let root_dir = config::get_default_root_dir();
+    let dec_key = load_dec_key(root_dir)
+        .expect("loading decrption key failed.");
+
+    let balance_query = getter::BalanceQuery::get_encrypted_balance(&dec_key, api)
+        .expect("Falid to get balance data.");
+
+    balance_query.decrypted_balance
 }
 
 // =================
@@ -91,6 +106,15 @@ fn get_new_keyfile<R: Rng>(
     )?;
 
     Ok(keyfile)
+}
+
+fn load_dec_key(root_dir: PathBuf) -> Result<DecryptionKey<Bls12>> {
+    let (wallet_dir, keystore_dir) = wallet_keystore_dirs(&root_dir)?;
+    let default_keyfile_name = get_default_keyfile_name(&wallet_dir)?;
+    let keyfile = keystore_dir.load(default_keyfile_name.as_str())?;
+    let dec_key = keyfile.get_dec_key(TEST_PASSWORD.as_bytes())?;
+
+    Ok(dec_key)
 }
 
 // fn inner_confidential_transfer_tx<R: Rng>(
