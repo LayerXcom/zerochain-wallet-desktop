@@ -30,9 +30,6 @@ module.exports = [{
     mode: "development",
     resolve: resolve,
     module: module_settings,
-    externals: {
-        '../../zerochain': "require('./../../zerochain')"
-    },
     }, {
     target: 'electron-renderer',
     entry: './src/renderer/index.tsx',
@@ -43,6 +40,6 @@ module.exports = [{
     resolve: resolve,
     module: module_settings,
     externals: {
-        'zerochain': "require('/Users/masaru/LOGICA/layerx/zerochain/zero_wallet_desktop/zerochain')"
+        'zerochain': `require('${__dirname}/zerochain')`
     }
 }]

@@ -2,21 +2,40 @@ import {
   History,
 } from 'history';
 import React from 'react';
-import get_cpu_num from '../../zface_helper';
+import * as zfaceHelper from '../../zface_helper';
 
-interface ICreateWallet {
+interface ICreateWalletProps {
   history: History;
 }
 
-export default class CreateWallet extends React.Component<ICreateWallet> {
+interface ICreateWalletStates {
+  new_address: string;
+}
+
+export default class CreateWallet extends React.Component<ICreateWalletProps, ICreateWalletStates> {
+  public constructor(props: any) {
+    super(props);
+    this.state = {
+      new_address: '',
+    };
+    this.new_wallet = this.new_wallet.bind(this);
+  }
+
   public render() {
-    console.log(get_cpu_num());
     return (
       <div>
         <h2>Create Wallet</h2>
-        <button>create</button>
+        <button onClick={this.new_wallet}>create</button>
         <button onClick={() => this.props.history.goBack()}>back to menu</button>
+        <p>new_address: {this.state.new_address}</p>
       </div>
     );
+  }
+
+  private new_wallet(): void {
+    const newAddress = zfaceHelper.new_wallet();
+    this.setState({
+      new_address: newAddress,
+    });
   }
 }
