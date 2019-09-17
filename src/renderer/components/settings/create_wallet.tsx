@@ -33,9 +33,11 @@ export default class CreateWallet extends React.Component<ICreateWalletProps, IC
   }
 
   private new_wallet(): void {
-    const newAddress = zfaceHelper.new_wallet();
-    this.setState({
-      new_address: newAddress,
-    });
+    try {
+      const new_address = zfaceHelper.new_wallet();
+      this.setState({new_address});
+    } catch(error) {
+      alert(error.message);
+    }
   }
 }
