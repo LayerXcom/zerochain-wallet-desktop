@@ -6,6 +6,7 @@
   "scripts": {
     "build-electron": "webpack",
     "build-rust": "electron-build-env neon build --path zerochain --release",
+    "update-rust": "cd zerochain/native && cargo update",
     "watch-electron": "webpack --watch",
     "copy-index-html": "cp src/index.html dist/",
     "build": "npm-run-all build-rust copy-index-html build-electron",

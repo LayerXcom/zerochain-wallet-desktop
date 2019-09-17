@@ -1,5 +1,10 @@
 const zerochain = require('zerochain');
 
-export default function get_cpu_num() {
-  return zerochain.get_cpu_num();
+export function new_wallet() {
+  try {
+    const newAddress = zerochain.new_wallet();
+    return newAddress;
+  } catch (error) {
+    return error.message;
+  }
 }

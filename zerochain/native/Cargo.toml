@@ -2,6 +2,7 @@
 name = "zerochain"
 version = "0.1.0"
 build = "build.rs"
+edition = '2018'
 
 [lib]
 name = "zerochain"
@@ -11,6 +12,11 @@ crate-type = ["cdylib"]
 neon-build = "0.3.1"
 
 [dependencies]
+dirs = "1.0.5"
 neon = "0.3.1"
-num_cpus = "1.4.0"
+rand = "0.4"
 zface = { git = "https://github.com/LayerXcom/zero-chain", branch = "wallet-desktop"}
+zerochain-proofs = { git = "https://github.com/LayerXcom/zero-chain", branch = "wallet-desktop"}
+polkadot-rs = { git = "https://github.com/LayerXcom/polkadot.rs" }
+pairing = { git = "https://github.com/LayerXcom/librustzcash", branch = "zero-chain" }
+primitives = { package = "substrate-primitives", git = "https://github.com/osuketh/substrate", branch = "patch-zerochain" }
