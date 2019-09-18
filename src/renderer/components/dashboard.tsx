@@ -2,7 +2,7 @@ import React from 'react';
 import * as zfaceHelper from '../zface_helper';
 
 interface IDashboardState {
-    balance: number,
+    balance: number;
 }
 
 export default class Dashboard extends React.Component<{}, IDashboardState> {
