@@ -23,8 +23,16 @@ fn get_balance(mut cx: FunctionContext) -> JsResult<JsNumber> {
     Ok(cx.number(balance as f64))
 }
 
+fn submit_tx(mut cx: FunctionContext) -> JsResult<JsNull> {
+    let recipient_address = cx.argument::<JsString>(0)?.value();
+    let amount = cx.argument::<JsNumber>(1)?.value();
+    helper::submit_tx(&recipient_address, amount as u32);
+    Ok(cx.null())
+}
+
 register_module!(mut m, {
     m.export_function("new_wallet", new_wallet)?;
     m.export_function("get_balance", get_balance)?;
+    m.export_function("submit_tx", submit_tx)?;
     Ok(())
 });

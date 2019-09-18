@@ -1,4 +1,6 @@
 import React from 'react';
+import * as zfaceHelper from '../zface_helper';
+import { resolve } from 'dns';
 
 interface ISendFormStates {
     address: string;
@@ -6,10 +8,10 @@ interface ISendFormStates {
 }
 
 class SendForm extends React.Component<{}, ISendFormStates> {
-    private constructor(props: any) {
+    public constructor(props: any) {
         super(props);
         this.state = {
-            address: 'target address',
+            address: '',
             amount: 0,
         };
         this.handleChange = this.handleChange.bind(this);
@@ -34,9 +36,14 @@ class SendForm extends React.Component<{}, ISendFormStates> {
         this.setState({...this.state, [name]: value});
     }
 
-    private handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        alert('ts has submitted!!');
+    private async handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        try {
+            // should validate address format
+            zfaceHelper.submit_tx(this.state.address, this.state.amount);
+        } catch (error) {
+            alert(error.message);
+        }
     }
 }
 

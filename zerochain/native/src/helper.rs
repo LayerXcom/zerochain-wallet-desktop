@@ -16,8 +16,8 @@ use std::path::PathBuf;
 
 const TEST_PASSWORD: &'static str = "zerochain";
 const TEST_ACCOUNTNAME: &'static str = "zerochain";
-const CONF_PK_PATH: &'static str = "./params/conf_pk.dat";
-const CONF_VK_PATH: &'static str = "./params/conf_vk.dat";
+const CONF_PK_PATH: &'static str = "./zerochain/native/params/conf_pk.dat";
+const CONF_VK_PATH: &'static str = "./zerochain/native/params/conf_vk.dat";
 
 // Initialize a new wallet. Returning a generated address encoded by SS58 format.
 pub fn new_wallet() -> Result<String> {
