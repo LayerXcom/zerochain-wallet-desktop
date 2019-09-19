@@ -6,7 +6,7 @@ interface ISendFormStates {
     amount: number;
 }
 
-class SendForm extends React.Component<{}, ISendFormStates> {
+export default class Send extends React.Component<{}, ISendFormStates> {
     public constructor(props: any) {
         super(props);
         this.state = {
@@ -19,14 +19,22 @@ class SendForm extends React.Component<{}, ISendFormStates> {
 
     public render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>Address:</label>
-                <input type="text" name="address" value={this.state.address} onChange={this.handleChange} />
-                <label>Amount:</label>
-                <input type="number" name="amount" value={this.state.amount} onChange={this.handleChange} />
-
-                <input type="submit" value="Submit" />
-            </form>
+            <div>
+                <h2>Send</h2>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                        <label>Address:</label>
+                        <input type="text" name="address" value={this.state.address}
+                            onChange={this.handleChange} className="form-control"  placeholder="address"/>
+                    </div>
+                    <div className="form-group">
+                        <label>Amount:</label>
+                        <input type="number" name="amount" value={this.state.amount}
+                            onChange={this.handleChange} className="form-control" placeholder="amount   ex) 10"/>
+                    </div>
+                    <input type="submit" value="Submit" className="btn btn-primary" />
+                </form>
+            </div>
         );
     }
 
@@ -46,16 +54,5 @@ class SendForm extends React.Component<{}, ISendFormStates> {
         } catch (error) {
             alert(error.message);
         }
-    }
-}
-
-export default class Send extends React.Component {
-    public render() {
-        return (
-            <div>
-                <h2>Send</h2>
-                <SendForm />
-            </div>
-        );
     }
 }
