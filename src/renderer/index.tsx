@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Link,
   Route,
+  Switch,
 } from 'react-router-dom';
 
 import Dashboard from './components/dashboard';
@@ -48,6 +49,7 @@ class ZerochainWalletApp extends React.Component {
                 </div>
 
                 <div style={{ flex: 1, padding: '10px' }}>
+                <Switch>
                 {routes.map((route, index) => (
                     <Route
                     key={index}
@@ -56,6 +58,8 @@ class ZerochainWalletApp extends React.Component {
                     component={route.component}
                     />
                 ))}
+                 <Route component={Dashboard} />
+                 </Switch>
                 </div>
             </div>
         </Router>
