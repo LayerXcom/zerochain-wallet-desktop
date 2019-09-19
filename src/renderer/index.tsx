@@ -11,6 +11,8 @@ import Recieve from './components/recieve';
 import Send from './components/send';
 import Settings from './components/settings';
 
+import './../css/index.scss';
+
 const routes = [
     {
         component: Dashboard,
