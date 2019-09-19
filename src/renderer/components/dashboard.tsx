@@ -18,8 +18,15 @@ export default class Dashboard extends React.Component<{}, IDashboardState> {
         return (
             <div>
                 <h2>Dashboard</h2>
-                <button onClick={this.update_to_latest}>update</button>
-                <p>balance: {this.state.balance}</p>
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title">Wallet Summary</h5>
+                        <p className="card-text">
+                            <button onClick={this.update_to_latest}>update</button>
+                            <p>balance: {this.state.balance}</p>
+                        </p>
+                    </div>
+                </div>
             </div>
         );
     }
