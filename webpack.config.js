@@ -37,7 +37,17 @@ const module_settings = {
     }, {
         test: /\.html$/,
         loader: "html-loader"
-    }],
+    },{
+        test: /\.(ttf|eot|woff|woff2|svg)$/,
+        use: [{
+            loader: 'file-loader',
+            options: {
+                name: "[name].[ext]",
+                outputPath: './webfonts',
+                publicPath: '../webfonts',
+            },
+        }],
+    }]
 };
 
 module.exports = [{
@@ -66,7 +76,7 @@ module.exports = [{
           template: "./src/index.html"
         }),
         new MiniCssExtractPlugin({
-            filename: 'dist/bundle.css'
+            filename: 'src/css/index.scss'
         }),
         ElectronReloadWebpackPlugin()
     ]

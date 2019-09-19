@@ -4,6 +4,12 @@
   width: 20vw;
 }
 
+.list-group-item {
+  svg {
+    margin-right: 0.5rem;
+  }
+}
+
 #sidebar-wrapper .sidebar-heading {
   padding: 0.875rem 1.25rem;
   font-size: 1.2rem;

@@ -19,21 +19,37 @@ export default class Send extends React.Component<{}, ISendFormStates> {
 
     public render() {
         return (
-            <div>
-                <h2>Send</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        <label>Address:</label>
-                        <input type="text" name="address" value={this.state.address}
-                            onChange={this.handleChange} className="form-control"  placeholder="address"/>
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-12">
+                        <h1>Send</h1>
+                        <div className="row">
+                            <div className="col-sm-7">
+                                <form onSubmit={this.handleSubmit}>
+                                    <div className="form-group">
+                                        <label>Address:</label>
+                                        <input type="text" name="address" value={this.state.address}
+                                            onChange={this.handleChange} className="form-control" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Amount:</label>
+                                        <input type="text" name="amount" value={this.state.amount}
+                                                onChange={this.handleChange} className="form-control" />
+                                    </div>
+                                    <input type="submit" value="Submit" className="btn btn-primary" />
+                                </form>
+                            </div>
+                            <div className="col-sm-5">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <span className="small">Current Balance:</span>
+                                        <p className="font-weight-bold">120ZLX</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>Amount:</label>
-                        <input type="number" name="amount" value={this.state.amount}
-                            onChange={this.handleChange} className="form-control" placeholder="amount   ex) 10"/>
-                    </div>
-                    <input type="submit" value="Submit" className="btn btn-primary" />
-                </form>
+                </div>
             </div>
         );
     }
