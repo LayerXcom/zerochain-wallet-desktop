@@ -4,12 +4,9 @@
   "description": "",
   "main": "./src/main/index.js",
   "scripts": {
-    "build-electron": "webpack",
     "build-rust": "electron-build-env neon build --path zerochain --release",
     "update-rust": "cd zerochain/native && cargo update",
-    "watch-electron": "webpack --watch",
-    "build": "npm-run-all build-rust build-electron",
-    "start": "electron ./dist/main/index.js"
+    "start": "webpack --watch"
   },
   "repository": {
     "type": "git",

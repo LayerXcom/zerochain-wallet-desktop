@@ -8,7 +8,7 @@
 ## Setup
 ```sh
 yarn
-yarn build  # it takes more than 10 minutes to finish compile zface.
+yarn build-rust  # it takes more than 10 minutes to finish compile zface.
 ```
 
 ## Start app
