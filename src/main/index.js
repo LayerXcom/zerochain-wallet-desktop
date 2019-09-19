@@ -2,7 +2,9 @@ const {
     app,
     BrowserWindow,
     Menu,
-} = require('electron')
+} = require('electron');
+
+const { client } = require('electron-connect');
 
 let win
 
@@ -43,6 +45,8 @@ function createWindow() {
         },
       ];
       Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+
+      client.create(win);
 }
 
 app.on('ready', createWindow)

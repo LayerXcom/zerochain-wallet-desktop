@@ -1,5 +1,11 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const createElectronReloadWebpackPlugin = require('electron-reload-webpack-plugin');
+
+const ElectronReloadWebpackPlugin = createElectronReloadWebpackPlugin({
+  path: './dist/main/index.js',
+});
+
 
 const resolve = {
     extensions: [
@@ -61,6 +67,7 @@ module.exports = [{
         }),
         new MiniCssExtractPlugin({
             filename: 'dist/bundle.css'
-        })
+        }),
+        ElectronReloadWebpackPlugin()
     ]
 }]
