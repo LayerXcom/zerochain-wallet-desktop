@@ -1,15 +1,18 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Link,
   Route,
+  Switch,
 } from 'react-router-dom';
 
 import Dashboard from './components/dashboard';
 import Recieve from './components/recieve';
 import Send from './components/send';
 import Settings from './components/settings';
+
+import './../css/index.scss';
 
 const routes = [
     {
@@ -35,27 +38,34 @@ class ZerochainWalletApp extends React.Component {
     public render() {
         return (
             <Router>
-            <div style={{ display: 'flex' }}>
-                <div style={{padding: '10px', width: '30%', background: '#f0f0f0'}}>
-                    <ul style={{ listStyleType: 'none', padding: 0 }}>
-                        <li><Link to="/">Dashboard</Link></li>
-                        <li><Link to="/send">Send</Link></li>
-                        <li><Link to="/recieve">Recieve</Link></li>
-                        <li><Link to="/settings">Settings</Link></li>
-                    </ul>
+                <div className="d-flex" id="wrapper">
+                    <div className="bg-light border-right" id="sidebar-wrapper">
+                        <div className="sidebar-heading">Zerochain Wallet</div>
+                        <div className="list-group list-group-flush">
+                            <Link to="/" className="list-group-item list-group-item-action bg-light">Dashboard</Link>
+                            <Link to="/send" className="list-group-item list-group-item-action bg-light">Send</Link>
+                            <Link to="/recieve" className="list-group-item list-group-item-action bg-light">Recieve</Link>
+                            <Link to="/settings" className="list-group-item list-group-item-action bg-light">Settings</Link>
+                        </div>
+                    </div>
+                    <div id="page-content-wrapper">
+                        <div className="container-fluid">
+                            <Switch>
+                                {routes.map((route, index) => (
+                                    <Route
+                                    key={index}
+                                    path={route.path}
+                                    exact={route.exact}
+                                    component={route.component}
+                                    />
+                                ))}
+                                <Route component={Dashboard} />
+                            </Switch>
+                        </div>
+                        {/* .container-fluid */}
+                    </div>
+                    {/* #page-content-wrapper */}
                 </div>
-
-                <div style={{ flex: 1, padding: '10px' }}>
-                {routes.map((route, index) => (
-                    <Route
-                    key={index}
-                    path={route.path}
-                    exact={route.exact}
-                    component={route.component}
-                    />
-                ))}
-                </div>
-            </div>
         </Router>
         );
     }

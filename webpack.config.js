@@ -1,3 +1,12 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const createElectronReloadWebpackPlugin = require('electron-reload-webpack-plugin');
+
+const ElectronReloadWebpackPlugin = createElectronReloadWebpackPlugin({
+  path: './dist/main/index.js',
+});
+
+
 const resolve = {
     extensions: [
         '.ts',
@@ -18,6 +27,16 @@ const module_settings = {
             configFile: './tslint.json',
             typeCheck: true,
         },
+    }, {
+        test: /(\.s[ac]ss)$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+        ]
+    }, {
+        test: /\.html$/,
+        loader: "html-loader"
     }],
 };
 
@@ -41,5 +60,14 @@ module.exports = [{
     module: module_settings,
     externals: {
         'zerochain': `require('${__dirname}/zerochain')`
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+          template: "./src/index.html"
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'dist/bundle.css'
+        }),
+        ElectronReloadWebpackPlugin()
+    ]
 }]
