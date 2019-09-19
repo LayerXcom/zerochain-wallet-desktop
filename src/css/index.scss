@@ -1,3 +1,12 @@
+@import 'bootstrap';
+@import './sidebar';
+
+body {
+  color: #4c444d;
+  overflow-x: hidden;
+}
+
 h2 {
-  color: red;
+  font-size: 2.0rem;
+  margin-top: 1.5rem;
 }
