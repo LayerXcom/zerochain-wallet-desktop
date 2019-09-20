@@ -1,6 +1,5 @@
 import React from 'react';
 import * as zfaceHelper from '../zface_helper';
-import { resolve } from 'dns';
 
 interface ISendFormStates {
     address: string;

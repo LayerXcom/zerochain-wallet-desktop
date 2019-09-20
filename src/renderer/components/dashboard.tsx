@@ -37,7 +37,7 @@ export default class Dashboard extends React.Component<{}, IDashboardState> {
         this.get_balance();
     }
 
-    public componentDidMount() {
+    public componentDidMount(): void {
         this.update_to_latest();
     }
 
