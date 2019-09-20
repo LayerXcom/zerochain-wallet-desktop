@@ -6,7 +6,7 @@ interface ISendFormStates {
     amount: number;
 }
 
-class SendForm extends React.Component<{}, ISendFormStates> {
+export default class Send extends React.Component<{}, ISendFormStates> {
     public constructor(props: any) {
         super(props);
         this.state = {
@@ -19,14 +19,38 @@ class SendForm extends React.Component<{}, ISendFormStates> {
 
     public render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>Address:</label>
-                <input type="text" name="address" value={this.state.address} onChange={this.handleChange} />
-                <label>Amount:</label>
-                <input type="number" name="amount" value={this.state.amount} onChange={this.handleChange} />
-
-                <input type="submit" value="Submit" />
-            </form>
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-12">
+                        <h1>Send</h1>
+                        <div className="row">
+                            <div className="col-sm-7">
+                                <form onSubmit={this.handleSubmit}>
+                                    <div className="form-group">
+                                        <label>Address:</label>
+                                        <input type="text" name="address" value={this.state.address}
+                                            onChange={this.handleChange} className="form-control" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Amount:</label>
+                                        <input type="text" name="amount" value={this.state.amount}
+                                                onChange={this.handleChange} className="form-control" />
+                                    </div>
+                                    <input type="submit" value="Submit" className="btn btn-primary" />
+                                </form>
+                            </div>
+                            <div className="col-sm-5">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <span className="small">Current Balance:</span>
+                                        <p className="font-weight-bold">120ZLX</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
     }
 
@@ -46,16 +70,5 @@ class SendForm extends React.Component<{}, ISendFormStates> {
         } catch (error) {
             alert(error.message);
         }
-    }
-}
-
-export default class Send extends React.Component {
-    public render() {
-        return (
-            <div>
-                <h2>Send</h2>
-                <SendForm />
-            </div>
-        );
     }
 }

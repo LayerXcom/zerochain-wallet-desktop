@@ -13,6 +13,9 @@ import Send from './components/send';
 import Settings from './components/settings';
 
 import './../css/index.scss';
+import '@fortawesome/fontawesome-free/js/fontawesome';
+import '@fortawesome/fontawesome-free/js/solid';
+import '@fortawesome/fontawesome-free/js/regular';
 
 const routes = [
     {
@@ -43,16 +46,16 @@ class ZerochainWalletApp extends React.Component {
                         <div className="sidebar-heading">Zerochain Wallet</div>
                         <div className="list-group list-group-flush">
                             <Link to="/" className="list-group-item list-group-item-action bg-light">
-                                Dashboard
+                                <i className="fas fa-table"></i>Dashboard
                             </Link>
                             <Link to="/send" className="list-group-item list-group-item-action bg-light">
-                                Send
+                            <i className="fas fa-paper-plane"></i>Send
                             </Link>
                             <Link to="/recieve" className="list-group-item list-group-item-action bg-light">
-                                Recieve
+                                <i className="fas fa-wallet"></i>Recieve
                             </Link>
                             <Link to="/settings" className="list-group-item list-group-item-action bg-light">
-                                Settings
+                                <i className="fas fa-cog"></i>Settings
                             </Link>
                         </div>
                     </div>
