@@ -15,3 +15,6 @@ node_modules
 
 # Ignore snarks parameter directory
 zerochain/native/params
+
+# Ignore built Frontend source codes
+dist/
