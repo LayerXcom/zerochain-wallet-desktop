@@ -24,7 +24,7 @@ class SendForm extends React.Component<{}, ISendFormStates> {
                 <label>Address:</label>
                 <input type="text" name="address" value={this.state.address} onChange={this.handleChange} />
                 <label>Amount:</label>
-                <input type="text" name="amount" value={this.state.amount} onChange={this.handleChange} />
+                <input type="number" name="amount" value={this.state.amount} onChange={this.handleChange} />
 
                 <input type="submit" value="Submit" />
             </form>
@@ -33,13 +33,16 @@ class SendForm extends React.Component<{}, ISendFormStates> {
 
     private handleChange(event: React.FormEvent<HTMLInputElement>) {
         const { name, value } = event.currentTarget;
-        this.setState({...this.state, [name]: value});
+        if (name === 'amount') {
+            this.setState({...this.state, [name]: parseFloat(value)});
+        } else {
+            this.setState({...this.state, [name]: value});
+        }
     }
 
     private async handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         try {
-            // should validate address format
             zfaceHelper.submit_tx(this.state.address, this.state.amount);
         } catch (error) {
             alert(error.message);
