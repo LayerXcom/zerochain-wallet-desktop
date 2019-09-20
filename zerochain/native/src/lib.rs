@@ -1,5 +1,10 @@
 #[macro_use]
 extern crate neon;
+#[macro_use]
+extern crate neon_serde;
+#[macro_use]
+extern crate serde_derive;
+
 use neon::prelude::*;
 use zface::wallet::config::INDEXFILE;
 mod helper;
@@ -30,9 +35,16 @@ fn submit_tx(mut cx: FunctionContext) -> JsResult<JsNull> {
     Ok(cx.null())
 }
 
+fn get_wallet_list(mut cx: FunctionContext) -> JsResult<JsValue> {
+    let value = helper::get_wallet_list().unwrap();
+    let js_value = neon_serde::to_value(&mut cx, &value).unwrap();
+    Ok(js_value)
+}
+
 register_module!(mut m, {
     m.export_function("new_wallet", new_wallet)?;
     m.export_function("get_balance", get_balance)?;
+    m.export_function("get_wallet_list", get_wallet_list)?;
     m.export_function("submit_tx", submit_tx)?;
     Ok(())
 });

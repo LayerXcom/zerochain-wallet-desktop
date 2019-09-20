@@ -5,7 +5,7 @@ use zface::{config, term, wallet::*, error::Result, derive::*, transaction::*, u
 use zface::wallet::{
     config::*,
     commands::{
-        Mnemonic, MnemonicType, Language, Seed, wallet_keystore_dirs, new_indexfile, get_default_keyfile_name,
+        Mnemonic, MnemonicType, Language, Seed, wallet_keystore_dirs, new_indexfile, get_default_keyfile_name, get_default_index,
     }
 };
 use zerochain_proofs::DecryptionKey;
@@ -86,6 +86,36 @@ pub fn get_balance() -> u32 {
         .expect("Falid to get balance data.");
 
     balance_query.decrypted_balance
+}
+
+
+#[derive(Serialize)]
+pub struct WalletInfo {
+    name: String,
+    address: String,
+    isDefault: bool,
+}
+
+pub fn get_wallet_list() -> Result<Vec<WalletInfo>> {
+    let root_dir = config::get_default_root_dir();
+    let (wallet_dir, keystore_dir) = wallet_keystore_dirs(&root_dir)?;
+
+    let keyfiles = keystore_dir.load_all()?;
+    if keyfiles.len() == 0 {
+        return Ok(Vec::new());
+    }
+
+    let default_index = get_default_index(&wallet_dir)? as usize;
+
+    let mut wallets: Vec<WalletInfo> = Vec::new();
+    for (i, keyfile) in keyfiles.iter().enumerate() {
+        let (name, address) = (&*keyfile.account_name, &*keyfile.ss58_address);
+        let is_default = if i == default_index { true } else { false };
+        let wallet = WalletInfo{name: name.to_string(), address: address.to_string(), isDefault: is_default};
+        wallets.push(wallet);
+    }
+
+    Ok(wallets)
 }
 
 // =================

@@ -12,3 +12,7 @@ export function get_balance() {
 export function submit_tx(recipientAddress: string, amount: number): void {
   zerochain.submit_tx(recipientAddress, amount);
 }
+
+export function get_wallet_list() {
+  return zerochain.get_wallet_list();
+}

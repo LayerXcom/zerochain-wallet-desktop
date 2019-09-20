@@ -14,8 +14,8 @@ import Settings from './components/settings';
 
 import './../css/index.scss';
 import '@fortawesome/fontawesome-free/js/fontawesome';
-import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
+import '@fortawesome/fontawesome-free/js/solid';
 
 const routes = [
     {

@@ -3,6 +3,19 @@ import * as zfaceHelper from '../zface_helper';
 
 interface IDashboardState {
     balance: number;
+    wallets: WalletInfo[];
+}
+
+class WalletInfo {
+    public name: string;
+    public address: string;
+    public isDefault: boolean;
+
+    public constructor(name: string, address: string, isDefault: boolean) {
+        this.name = name;
+        this.address = address;
+        this.isDefault = isDefault;
+    }
 }
 
 export default class Dashboard extends React.Component<{}, IDashboardState> {
@@ -10,10 +23,12 @@ export default class Dashboard extends React.Component<{}, IDashboardState> {
         super(props);
         this.state = {
           balance: 0,
+          wallets: [],
         };
         this.get_balance = this.get_balance.bind(this);
         this.update_to_latest = this.update_to_latest.bind(this);
-      }
+        this.get_wallet_list = this.get_wallet_list.bind(this);
+    }
     public render() {
         return (
             <div className="container">
@@ -23,15 +38,11 @@ export default class Dashboard extends React.Component<{}, IDashboardState> {
                         <div className="card">
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-12">
                                         <span className="small">Current Balance:</span>
                                         <div className="total-balance">
-                                            1000<span className="unit">ZLX</span>
+                                            {this.state.balance}<span className="unit">ZLX</span>
                                         </div>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <p>Latest Sync: 2019/06/19 12:00</p>
-                                        <p>Block Height: #1398</p>
                                     </div>
                                 </div>
                             </div>
@@ -49,18 +60,25 @@ export default class Dashboard extends React.Component<{}, IDashboardState> {
                                     <th></th>
                                     <th>Balance</th>
                                 </tr>
-                                <tr>
-                                    <td>default</td>
-                                    <td>5CfUk1yfBAhMZvMyHCsuy93fGUxLGSm8BLFesNxqaygtuLoE</td>
+                                {this.state.wallets.map((wallet) =>
+                                  <tr key={wallet.name}>
+                                    <td>
+                                    {
+                                        (() => {
+                                        if (wallet.isDefault) {
+                                            return(
+                                            <span className="font-weight-bold" style={{marginRight: '0.25rem'}}>*</span>
+                                            );
+                                        }
+                                        })()
+                                    }
+                                        {wallet.name}
+                                    </td>
+                                    <td>{wallet.address}{wallet.isDefault}</td>
                                     <td><i className="far fa-copy"></i></td>
-                                    <td>14 ZLX</td>
-                                </tr>
-                                <tr>
-                                    <td>sub_address</td>
-                                    <td>5CfUk1yfBAhMZvMyHCsuy93fGUxLGSm8BLFesNxqaygtuLoE</td>
-                                    <td><i className="far fa-copy"></i></td>
-                                    <td>230 ZLX</td>
-                                </tr>
+                                    <td>{this.state.balance} ZLX</td>
+                                  </tr>,
+                                )}
                             </tbody>
                         </table>
                     </div>
@@ -84,6 +102,18 @@ export default class Dashboard extends React.Component<{}, IDashboardState> {
 
     public componentDidMount(): void {
         this.update_to_latest();
+        this.get_wallet_list();
+    }
+
+    public get_wallet_list(): void {
+        try {
+            const walletList = zfaceHelper.get_wallet_list();
+            this.setState({
+                wallets: walletList,
+            });
+        } catch (error) {
+            alert(error.message);
+        }
     }
 
 }
