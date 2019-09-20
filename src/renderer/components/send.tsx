@@ -1,4 +1,5 @@
 import React from 'react';
+import * as zfaceHelper from '../zface_helper';
 
 interface ISendFormStates {
     address: string;
@@ -6,10 +7,10 @@ interface ISendFormStates {
 }
 
 class SendForm extends React.Component<{}, ISendFormStates> {
-    private constructor(props: any) {
+    public constructor(props: any) {
         super(props);
         this.state = {
-            address: 'target address',
+            address: '',
             amount: 0,
         };
         this.handleChange = this.handleChange.bind(this);
@@ -22,7 +23,7 @@ class SendForm extends React.Component<{}, ISendFormStates> {
                 <label>Address:</label>
                 <input type="text" name="address" value={this.state.address} onChange={this.handleChange} />
                 <label>Amount:</label>
-                <input type="text" name="amount" value={this.state.amount} onChange={this.handleChange} />
+                <input type="number" name="amount" value={this.state.amount} onChange={this.handleChange} />
 
                 <input type="submit" value="Submit" />
             </form>
@@ -31,12 +32,20 @@ class SendForm extends React.Component<{}, ISendFormStates> {
 
     private handleChange(event: React.FormEvent<HTMLInputElement>) {
         const { name, value } = event.currentTarget;
-        this.setState({...this.state, [name]: value});
+        if (name === 'amount') {
+            this.setState({...this.state, [name]: parseFloat(value)});
+        } else {
+            this.setState({...this.state, [name]: value});
+        }
     }
 
-    private handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        alert('ts has submitted!!');
+    private async handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        try {
+            zfaceHelper.submit_tx(this.state.address, this.state.amount);
+        } catch (error) {
+            alert(error.message);
+        }
     }
 }
 

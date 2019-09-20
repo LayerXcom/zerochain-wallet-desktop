@@ -12,3 +12,9 @@ Cargo.lock
 
 # Ignore JavaScript modules installed by npm
 node_modules
+
+# Ignore snarks parameter directory
+zerochain/native/params
+
+# Ignore built Frontend source codes
+dist/
