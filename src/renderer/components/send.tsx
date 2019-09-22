@@ -4,6 +4,7 @@ import * as zfaceHelper from '../zface_helper';
 interface ISendFormStates {
     address: string;
     amount: number;
+    balance: any;
 }
 
 export default class Send extends React.Component<{}, ISendFormStates> {
@@ -12,9 +13,14 @@ export default class Send extends React.Component<{}, ISendFormStates> {
         this.state = {
             address: '',
             amount: 0,
+            balance: null,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    public componentDidMount(): void {
+        this.get_balance();
     }
 
     public render() {
@@ -43,7 +49,7 @@ export default class Send extends React.Component<{}, ISendFormStates> {
                                 <div className="card">
                                     <div className="card-body">
                                         <span className="small">Current Balance:</span>
-                                        <p className="font-weight-bold">120ZLX</p>
+                                        <p className="font-weight-bold">{this.state.balance} ZLX</p>
                                     </div>
                                 </div>
                             </div>
@@ -67,6 +73,15 @@ export default class Send extends React.Component<{}, ISendFormStates> {
         event.preventDefault();
         try {
             zfaceHelper.submit_tx(this.state.address, this.state.amount);
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
+    public get_balance(): void {
+        try {
+            const balance = zfaceHelper.get_balance();
+            this.setState({balance});
         } catch (error) {
             alert(error.message);
         }
