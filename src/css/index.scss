@@ -1,9 +1,10 @@
+@import './bootstrap_variables';
 @import 'bootstrap';
 @import './dashboard';
 @import './sidebar';
 
+
 body {
-  color: #4c444d;
   overflow-x: hidden;
 }
 
