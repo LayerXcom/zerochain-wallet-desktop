@@ -42,19 +42,19 @@ class ZerochainWalletApp extends React.Component {
         return (
             <Router>
                 <div className="d-flex" id="wrapper">
-                    <div className="bg-light border-right" id="sidebar-wrapper">
+                    <div className="border-right" id="sidebar-wrapper">
                         <div className="sidebar-heading">Zerochain Wallet</div>
                         <div className="list-group list-group-flush">
-                            <Link to="/" className="list-group-item list-group-item-action bg-light">
+                            <Link to="/" className="list-group-item list-group-item-action">
                                 <i className="fas fa-table"></i>Dashboard
                             </Link>
-                            <Link to="/send" className="list-group-item list-group-item-action bg-light">
+                            <Link to="/send" className="list-group-item list-group-item-action">
                             <i className="fas fa-paper-plane"></i>Send
                             </Link>
-                            <Link to="/recieve" className="list-group-item list-group-item-action bg-light">
+                            <Link to="/recieve" className="list-group-item list-group-item-action">
                                 <i className="fas fa-wallet"></i>Recieve
                             </Link>
-                            <Link to="/settings" className="list-group-item list-group-item-action bg-light">
+                            <Link to="/settings" className="list-group-item list-group-item-action">
                                 <i className="fas fa-cog"></i>Settings
                             </Link>
                         </div>
