@@ -59,7 +59,13 @@ export default class Recieve extends React.Component<{}, IRecieve> {
                                     {
                                         (() => {
                                         if (wallet.isDefault) {
-                                            return(<span className="font-weight-bold" style={{marginRight: '0.25rem'}}>*</span>);
+                                            return(
+                                                <span
+                                                    className="font-weight-bold"
+                                                    style={{marginRight: '0.25rem'}}>
+                                                        *
+                                                </span>
+                                            );
                                         }
                                         })()
                                     }

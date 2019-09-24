@@ -29,7 +29,10 @@ export default class CreateWallet extends React.Component<ICreateWalletProps, IC
                         <h1>Create Wallet</h1>
                         <p>new_address: {this.state.new_address}</p>
                         <button onClick={this.new_wallet} className="btn btn-link">create</button>
-                        <button onClick={() => this.props.history.goBack()} className="btn btn-link">back to menu</button>
+                        <button
+                            onClick={() => this.props.history.goBack()} className="btn btn-link">
+                              back to menu
+                        </button>
                     </div>
                 </div>
             </div>

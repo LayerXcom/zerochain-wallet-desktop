@@ -60,6 +60,15 @@ export default class Send extends React.Component<{}, ISendFormStates> {
         );
     }
 
+    public get_balance(): void {
+        try {
+            const balance = zfaceHelper.get_balance();
+            this.setState({balance});
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
     private handleChange(event: React.FormEvent<HTMLInputElement>) {
         const { name, value } = event.currentTarget;
         if (name === 'amount') {
@@ -73,15 +82,6 @@ export default class Send extends React.Component<{}, ISendFormStates> {
         event.preventDefault();
         try {
             zfaceHelper.submit_tx(this.state.address, this.state.amount);
-        } catch (error) {
-            alert(error.message);
-        }
-    }
-
-    public get_balance(): void {
-        try {
-            const balance = zfaceHelper.get_balance();
-            this.setState({balance});
         } catch (error) {
             alert(error.message);
         }

@@ -15,7 +15,10 @@ export default class Backup extends React.Component<IBackup> {
                     <div className="col-sm-12">
                         <h1>Backup</h1>
                         <button className="btn btn-link">show mnemonic</button>
-                        <button onClick={() => this.props.history.goBack()} className="btn btn-link">back to menu</button>
+                        <button
+                            onClick={() => this.props.history.goBack()} className="btn btn-link">
+                                back to menu
+                        </button>
                     </div>
                 </div>
             </div>
