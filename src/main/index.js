@@ -28,25 +28,25 @@ function createWindow() {
     })
     const template = [
         {
-          label: 'General',
-          submenu: [
-            { label: 'Reload', accelerator: 'CmdOrCtrl+R', role: 'reload' },  // not working...
-            { label: 'Quit', accelerator: 'CmdOrCtrl+Q', role: 'quit' },
-          ],
+            label: 'General',
+            submenu: [
+                { label: 'Reload', accelerator: 'CmdOrCtrl+R', role: 'reload' },  // not working...
+                { label: 'Quit', accelerator: 'CmdOrCtrl+Q', role: 'quit' },
+            ],
         },
         {
-          label: 'Edit',
-          submenu: [
-            { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
-            { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
-            { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
-            { label: 'Select All', accelerator: 'CmdOrCtrl+A', role: 'selectall' },
-          ],
+            label: 'Edit',
+            submenu: [
+                { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
+                { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+                { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
+                { label: 'Select All', accelerator: 'CmdOrCtrl+A', role: 'selectall' },
+            ],
         },
-      ];
-      Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+    ];
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
-      client.create(win);
+    client.create(win);
 }
 
 app.on('ready', createWindow)

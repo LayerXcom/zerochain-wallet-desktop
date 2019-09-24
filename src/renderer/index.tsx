@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import {
-  HashRouter as Router,
-  Link,
-  Route,
-  Switch,
+    HashRouter as Router,
+    Link,
+    Route,
+    Switch,
 } from 'react-router-dom';
 
 import Dashboard from './components/dashboard';
