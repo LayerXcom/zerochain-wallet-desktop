@@ -31,7 +31,7 @@ export default class Dashboard extends React.Component<{}, IDashboardState> {
     }
     public render() {
         return (
-            <div className="container">
+            <div>
                 <div className="row">
                     <div className="col-sm-12">
                         <h1>Dashboard</h1>

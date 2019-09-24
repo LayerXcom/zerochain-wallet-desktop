@@ -61,17 +61,23 @@ class ZerochainWalletApp extends React.Component {
                     </div>
                     <div id="page-content-wrapper">
                         <div className="container-fluid">
-                            <Switch>
-                                {routes.map((route, index) => (
-                                    <Route
-                                    key={index}
-                                    path={route.path}
-                                    exact={route.exact}
-                                    component={route.component}
-                                    />
-                                ))}
-                                <Route component={Dashboard} />
-                            </Switch>
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-sm-12">
+                                        <Switch>
+                                            {routes.map((route, index) => (
+                                                <Route
+                                                key={index}
+                                                path={route.path}
+                                                exact={route.exact}
+                                                component={route.component}
+                                                />
+                                            ))}
+                                            <Route component={Dashboard} />
+                                        </Switch>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         {/* .container-fluid */}
                     </div>

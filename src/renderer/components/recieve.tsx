@@ -42,43 +42,39 @@ export default class Recieve extends React.Component<{}, IRecieve> {
 
     public render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-sm-12">
-                        <h1>Recieve</h1>
-                        <table className="table">
-                            <tbody>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Address</th>
-                                    <th></th>
-                                </tr>
-                                {this.state.wallets.map((wallet) =>
-                                <tr key={wallet.name}>
-                                    <td>
-                                    {
-                                        (() => {
-                                        if (wallet.isDefault) {
-                                            return(
-                                                <span
-                                                    className="font-weight-bold"
-                                                    style={{marginRight: '0.25rem'}}>
-                                                        *
-                                                </span>
-                                            );
-                                        }
-                                        })()
-                                    }
-                                        {wallet.name}
-                                    </td>
-                                    <td>{wallet.address}{wallet.isDefault}</td>
-                                    <td><i className="far fa-copy"></i></td>
-                                </tr>,
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div>
+                <h1>Recieve</h1>
+                <table className="table">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th></th>
+                        </tr>
+                        {this.state.wallets.map((wallet) =>
+                        <tr key={wallet.name}>
+                            <td>
+                            {
+                                (() => {
+                                if (wallet.isDefault) {
+                                    return(
+                                        <span
+                                            className="font-weight-bold"
+                                            style={{marginRight: '0.25rem'}}>
+                                                *
+                                        </span>
+                                    );
+                                }
+                                })()
+                            }
+                                {wallet.name}
+                            </td>
+                            <td>{wallet.address}{wallet.isDefault}</td>
+                            <td><i className="far fa-copy"></i></td>
+                        </tr>,
+                        )}
+                    </tbody>
+                </table>
             </div>
         );
     }
