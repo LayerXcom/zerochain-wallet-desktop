@@ -33,7 +33,8 @@ export default class NewAccount extends React.Component<INewAccountProps, INewAc
         try {
             zfaceHelper.add_account(this.state.account_name);
             this.setState({
-                is_open: false
+                is_open: false,
+                account_name: '',
             });
             this.props.after_create();
         } catch (error) {
