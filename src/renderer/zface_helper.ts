@@ -16,3 +16,8 @@ export function submit_tx(recipientAddress: string, amount: number): void {
 export function get_wallet_list() {
     return zerochain.get_wallet_list();
 }
+
+export function recover(phrases: Array<string>) {
+    const phrase_str = phrases.join(' ');  // white spaces are required.
+    return zerochain.recover(phrase_str);
+}
