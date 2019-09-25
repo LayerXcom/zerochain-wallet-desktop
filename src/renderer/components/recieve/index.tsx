@@ -1,5 +1,7 @@
 import React from 'react';
-import * as zfaceHelper from '../zface_helper';
+import * as zfaceHelper from '../../zface_helper';
+
+import NewAccount from './new_account';
 
 interface IRecieve {
     wallets: WalletInfo[];
@@ -23,6 +25,7 @@ export default class Recieve extends React.Component<{}, IRecieve> {
         this.state = {
           wallets: [],
         };
+        this.add_account = this.add_account.bind(this);
     }
 
     public componentDidMount(): void {
@@ -38,6 +41,11 @@ export default class Recieve extends React.Component<{}, IRecieve> {
         } catch (error) {
             alert(error.message);
         }
+    }
+
+    public add_account(): void {
+        const new_address = zfaceHelper.add_account('sample');
+        console.log(new_address);
     }
 
     public render() {
@@ -75,6 +83,7 @@ export default class Recieve extends React.Component<{}, IRecieve> {
                         )}
                     </tbody>
                 </table>
+                <NewAccount after_create={this.get_wallet_list.bind(this)} />
             </div>
         );
     }
