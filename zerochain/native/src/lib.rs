@@ -9,6 +9,12 @@ use neon::prelude::*;
 use zface::wallet::config::INDEXFILE;
 mod helper;
 
+fn new_keyfile(mut cx: FunctionContext) -> JsResult<JsString> {
+    let name = cx.argument::<JsString>(0)?.value();
+    let new_address = helper::new_keyfile(&name).unwrap();
+    Ok(cx.string(new_address))
+}
+
 fn new_wallet(mut cx: FunctionContext) -> JsResult<JsString> {
     if !wallet_exist() {
         let new_address = helper::new_wallet().unwrap();
@@ -48,6 +54,7 @@ fn recover(mut cx: FunctionContext) -> JsResult<JsString> {
 }
 
 register_module!(mut m, {
+    m.export_function("add_account", new_keyfile)?;
     m.export_function("new_wallet", new_wallet)?;
     m.export_function("get_balance", get_balance)?;
     m.export_function("get_wallet_list", get_wallet_list)?;

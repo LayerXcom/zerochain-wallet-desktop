@@ -1,12 +1,13 @@
 #![allow(dead_code)]
 
 use rand::{OsRng, Rng};
-use zface::{config, term, wallet::*, error::Result, derive::*, transaction::*, utils::*, ss58};
+use zface::{config, term, wallet::*, error::{Result, KeystoreError}, derive::*, transaction::*, utils::*, ss58};
 use zface::wallet::{
     config::*,
     commands::{
         Mnemonic, MnemonicType, Language, Seed, wallet_keystore_dirs, new_indexfile, get_default_keyfile_name, get_default_index,
-    }
+        increment_indexfile, get_max_index
+    },
 };
 use zerochain_proofs::DecryptionKey;
 use pairing::bls12_381::Bls12;
@@ -19,6 +20,27 @@ const TEST_PASSWORD: &'static str = "zerochain";
 const TEST_ACCOUNTNAME: &'static str = "zerochain";
 const CONF_PK_PATH: &'static str = "./zerochain/native/params/conf_pk.dat";
 const CONF_VK_PATH: &'static str = "./zerochain/native/params/conf_vk.dat";
+
+// Create a new key. Returning a generated address encoded by SS58 format.
+pub fn new_keyfile(account_name: &str) -> Result<String> {
+    let rng = &mut OsRng::new().expect("should be able to construct RNG");
+    let root_dir = config::get_default_root_dir();
+    let (wallet_dir, keystore_dir) = wallet_keystore_dirs(&root_dir)?;
+
+    // save a new keyfile
+    let password = TEST_PASSWORD.as_bytes();
+    let incremented_index = get_max_index(&wallet_dir)? + 1;
+    let child_index = ChildIndex::from_index(incremented_index);
+    let mut keyfile = get_new_keyfile(rng, &password[..], &account_name, &wallet_dir, child_index)?;
+    keystore_dir.insert(&mut keyfile, rng)?;
+
+    let filename = keyfile.file_name.ok_or(KeystoreError::InvalidKeyfile)?;
+
+    // set index to new account
+    increment_indexfile(&wallet_dir, filename.as_str(), keyfile.account_name.as_str())?;
+
+    Ok(keyfile.ss58_address)
+}
 
 // Initialize a new wallet. Returning a generated address encoded by SS58 format.
 pub fn new_wallet() -> Result<String> {
@@ -43,7 +65,8 @@ pub fn new_wallet() -> Result<String> {
 
     // 5. create a genesis keyfile
     let child_index = ChildIndex::from_index(0);
-    let mut keyfile = get_new_keyfile(rng, password, &wallet_dir, child_index)?;
+    let account_name = TEST_ACCOUNTNAME;
+    let mut keyfile = get_new_keyfile(rng, password, &account_name, &wallet_dir, child_index)?;
 
     // 6. store a genesis keyfile
     keystore_dir.insert(&mut keyfile, rng)?;
@@ -163,6 +186,7 @@ pub fn get_wallet_list() -> Result<Vec<WalletInfo>> {
 fn get_new_keyfile<R: Rng>(
     rng: &mut R,
     password: &[u8],
+    account_name: &str,
     wallet_dir: &WalletDirectory,
     child_index: ChildIndex,
 ) -> Result<KeyFile> {
@@ -171,7 +195,7 @@ fn get_new_keyfile<R: Rng>(
 
     // create new keyfile
     let keyfile = KeyFile::new(
-        TEST_ACCOUNTNAME,
+        account_name,
         VERSION,
         password,
         ITERS,
