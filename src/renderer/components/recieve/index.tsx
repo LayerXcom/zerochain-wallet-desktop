@@ -25,7 +25,6 @@ export default class Recieve extends React.Component<{}, IRecieve> {
         this.state = {
           wallets: [],
         };
-        this.add_account = this.add_account.bind(this);
     }
 
     public componentDidMount(): void {
@@ -41,11 +40,6 @@ export default class Recieve extends React.Component<{}, IRecieve> {
         } catch (error) {
             alert(error.message);
         }
-    }
-
-    public add_account(): void {
-        const new_address = zfaceHelper.add_account('sample');
-        console.log(new_address);
     }
 
     public render() {

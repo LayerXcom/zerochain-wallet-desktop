@@ -1,7 +1,7 @@
 const zerochain = require('zerochain');
 
-export function add_account(account_name: string) {
-    const newAddress = zerochain.add_account(account_name);
+export function add_account(accountName: string) {
+    const newAddress = zerochain.add_account(accountName);
     return newAddress;
 }
 
