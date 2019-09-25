@@ -136,7 +136,8 @@ pub fn recover(phrase_str: &str) -> Result<String> {
 
     // 5. create a genesis keyfile
     let child_index = ChildIndex::from_index(0);
-    let mut keyfile = get_new_keyfile(rng, &password[..], &wallet_dir, child_index)?;
+    let account_name = TEST_ACCOUNTNAME;
+    let mut keyfile = get_new_keyfile(rng, &password[..], &account_name, &wallet_dir, child_index)?;
 
     // 6. store a genesis keyfile
     keystore_dir.insert(&mut keyfile, rng)?;
