@@ -41,10 +41,17 @@ fn get_wallet_list(mut cx: FunctionContext) -> JsResult<JsValue> {
     Ok(js_value)
 }
 
+fn recover(mut cx: FunctionContext) -> JsResult<JsString> {
+    let phrase_str = cx.argument::<JsString>(0)?.value();
+    let restored_address = helper::recover(&phrase_str).unwrap();
+    Ok(cx.string(restored_address))
+}
+
 register_module!(mut m, {
     m.export_function("new_wallet", new_wallet)?;
     m.export_function("get_balance", get_balance)?;
     m.export_function("get_wallet_list", get_wallet_list)?;
+    m.export_function("recover", recover)?;
     m.export_function("submit_tx", submit_tx)?;
     Ok(())
 });

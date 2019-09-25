@@ -13,6 +13,7 @@ use pairing::bls12_381::Bls12;
 use polkadot_rs::{Url, Api};
 use primitives::crypto::Ss58Codec;
 use std::path::PathBuf;
+use std::fs::remove_dir_all;
 
 const TEST_PASSWORD: &'static str = "zerochain";
 const TEST_ACCOUNTNAME: &'static str = "zerochain";
@@ -87,6 +88,43 @@ pub fn get_balance() -> u32 {
 
     balance_query.decrypted_balance
 }
+
+// recover wallet from mnemonics
+pub fn recover(phrase_str: &str) -> Result<String> {
+    let rng = &mut OsRng::new().expect("should be able to construct RNG");
+    let root_dir = config::get_default_root_dir();
+
+    // 1. configure wallet directory
+    let (wallet_dir, _) = wallet_keystore_dirs(&root_dir)?;
+    remove_dir_all(wallet_dir.0.as_path())?;
+    let (wallet_dir, keystore_dir) = wallet_keystore_dirs(&root_dir)?;
+
+    // 2. load mnemonic
+    let mnemonic = Mnemonic::from_phrase(phrase_str, Language::English).unwrap();
+
+    // 3. create master keyfile
+    let password = TEST_PASSWORD.as_bytes();
+    let master_seed = Seed::new(&mnemonic, "");
+    let master_seed_bytes: &[u8] = master_seed.as_bytes();
+    let mut keyfile_master = KeyFile::create_master(MASTER_ACCOUNTNAME, VERSION, &password[..], ITERS, rng, master_seed_bytes)?;
+
+    // 4. store master keyfile
+    wallet_dir.insert_master(&mut keyfile_master)?;
+
+    // 5. create a genesis keyfile
+    let child_index = ChildIndex::from_index(0);
+    let mut keyfile = get_new_keyfile(rng, &password[..], &wallet_dir, child_index)?;
+
+    // 6. store a genesis keyfile
+    keystore_dir.insert(&mut keyfile, rng)?;
+
+    // 7. store new indexfile
+    let file_name = keyfile.file_name.expect("Filename should be set.");
+    new_indexfile(&wallet_dir, &file_name, &keyfile.account_name)?;
+
+    Ok(keyfile.ss58_address)
+}
+
 
 
 #[derive(Serialize)]
