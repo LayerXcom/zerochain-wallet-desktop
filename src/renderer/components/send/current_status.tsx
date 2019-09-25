@@ -14,7 +14,7 @@ export default class CurrentStatus extends React.Component<{}, ICurrentStatusSta
     }
 
     public componentDidMount(): void {
-        this.get_balance();
+        this.getBalance();
     }
 
     public render() {
@@ -28,9 +28,9 @@ export default class CurrentStatus extends React.Component<{}, ICurrentStatusSta
         );
     }
 
-    public get_balance(): void {
+    public getBalance(): void {
         try {
-            const balance = zfaceHelper.get_balance();
+            const balance = zfaceHelper.getBalance();
             this.setState({balance});
         } catch (error) {
             alert(error.message);

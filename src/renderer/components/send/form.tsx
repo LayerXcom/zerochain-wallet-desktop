@@ -46,7 +46,7 @@ export default class SendForm extends React.Component<{}, ISendFormStates> {
         event.preventDefault();
         // TODO: add amount state validator
         try {
-            zfaceHelper.submit_tx(this.state.address, parseFloat(this.state.amount));
+            zfaceHelper.submitTx(this.state.address, parseFloat(this.state.amount));
         } catch (error) {
             alert(error.message);
         }

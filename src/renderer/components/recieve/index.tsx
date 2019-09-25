@@ -28,12 +28,12 @@ export default class Recieve extends React.Component<{}, IRecieve> {
     }
 
     public componentDidMount(): void {
-        this.get_wallet_list();
+        this.getWalletList();
     }
 
-    public get_wallet_list(): void {
+    public getWalletList(): void {
         try {
-            const walletList = zfaceHelper.get_wallet_list();
+            const walletList = zfaceHelper.getWalletList();
             this.setState({
                 wallets: walletList,
             });
@@ -77,7 +77,7 @@ export default class Recieve extends React.Component<{}, IRecieve> {
                         )}
                     </tbody>
                 </table>
-                <NewAccount after_create={this.get_wallet_list.bind(this)} />
+                <NewAccount afterCreate={this.getWalletList.bind(this)} />
             </div>
         );
     }
