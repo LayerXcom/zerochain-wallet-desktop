@@ -9,24 +9,24 @@ interface ICreateWalletProps {
 }
 
 interface ICreateWalletStates {
-  new_address: string;
+  newAddress: string;
 }
 
 export default class CreateWallet extends React.Component<ICreateWalletProps, ICreateWalletStates> {
     public constructor(props: any) {
         super(props);
         this.state = {
-            new_address: '',
+            newAddress: '',
         };
-        this.new_wallet = this.new_wallet.bind(this);
+        this.newWallet = this.newWallet.bind(this);
     }
 
     public render() {
         return (
             <div>
                 <h1>Create Wallet</h1>
-                <p>new_address: {this.state.new_address}</p>
-                <button onClick={this.new_wallet} className="btn btn-link">create</button>
+                <p>new address: {this.state.newAddress}</p>
+                <button onClick={this.newWallet} className="btn btn-link">create</button>
                 <button
                     onClick={() => this.props.history.goBack()} className="btn btn-link">
                         back to menu
@@ -35,10 +35,10 @@ export default class CreateWallet extends React.Component<ICreateWalletProps, IC
         );
     }
 
-    private new_wallet(): void {
+    private newWallet(): void {
         try {
-              const newAddress = zfaceHelper.new_wallet();
-              this.setState({ new_address: newAddress });
+              const newAddress = zfaceHelper.newWallet();
+              this.setState({ newAddress });
         } catch (error) {
               alert(error.message);
         }

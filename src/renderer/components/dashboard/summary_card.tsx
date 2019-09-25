@@ -11,8 +11,8 @@ export default class SummaryCard extends React.Component<{}, IDashboardState> {
         this.state = {
           balance: 0,
         };
-        this.get_balance = this.get_balance.bind(this);
-        this.update_to_latest = this.update_to_latest.bind(this);
+        this.getBalance = this.getBalance.bind(this);
+        this.updateToLatest = this.updateToLatest.bind(this);
     }
     public render() {
         return (
@@ -31,20 +31,20 @@ export default class SummaryCard extends React.Component<{}, IDashboardState> {
         );
     }
 
-    public get_balance(): void {
+    public getBalance(): void {
         try {
-            const balance = zfaceHelper.get_balance();
+            const balance = zfaceHelper.getBalance();
             this.setState({balance});
         } catch (error) {
             alert(error.message);
         }
     }
 
-    public update_to_latest(): void {
-        this.get_balance();
+    public updateToLatest(): void {
+        this.getBalance();
     }
 
     public componentDidMount(): void {
-        this.update_to_latest();
+        this.updateToLatest();
     }
 }

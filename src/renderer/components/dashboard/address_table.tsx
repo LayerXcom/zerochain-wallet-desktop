@@ -23,7 +23,7 @@ export default class AddressTable extends React.Component<{}, IDashboardState> {
         this.state = {
           wallets: [],
         };
-        this.get_wallet_list = this.get_wallet_list.bind(this);
+        this.getWalletList = this.getWalletList.bind(this);
     }
     public render() {
         return (
@@ -63,12 +63,12 @@ export default class AddressTable extends React.Component<{}, IDashboardState> {
     }
 
     public componentDidMount(): void {
-        this.get_wallet_list();
+        this.getWalletList();
     }
 
-    public get_wallet_list(): void {
+    public getWalletList(): void {
         try {
-            const walletList = zfaceHelper.get_wallet_list();
+            const walletList = zfaceHelper.getWalletList();
             this.setState({
                 wallets: walletList,
             });

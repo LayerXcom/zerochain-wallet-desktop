@@ -2,45 +2,45 @@ import React from 'react';
 import * as zfaceHelper from '../../zface_helper';
 
 interface INewAccountStates {
-    account_name: string;
-    is_open: boolean;
+    accountName: string;
+    isOpen: boolean;
 }
 
 interface INewAccountProps {
-    after_create: () => void;
+    afterCreate: () => void;
 }
 
 export default class NewAccount extends React.Component<INewAccountProps, INewAccountStates> {
     public constructor(props: any) {
         super(props);
         this.state = {
-            account_name: '',
-            is_open: false,
+            accountName: '',
+            isOpen: false,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.show_form = this.show_form.bind(this);
+        this.showForm = this.showForm.bind(this);
     }
 
     public render() {
         return (
             <div>
                 {
-                    !this.state.is_open &&
+                    !this.state.isOpen &&
                     <div>
-                        <button className="btn btn-primary btn-sm" onClick={this.show_form}>
+                        <button className="btn btn-primary btn-sm" onClick={this.showForm}>
                             <i className="fas fa-plus"></i>
                         </button>
                         <span style={{marginLeft: '0.5rem'}}>create new address</span>
                     </div>
                 }
                 {
-                    this.state.is_open &&
+                    this.state.isOpen &&
                     <div>
                         <p>Input new account name.</p>
                         <form onSubmit={this.handleSubmit} className="form-inline">
                             <div className="form-group sm-8">
-                                <input type="text" name="account_name" value={this.state.account_name}
+                                <input type="text" name="accountName" value={this.state.accountName}
                                     onChange={this.handleChange} className="form-control" placeholder="account name" />
                             </div>
                             <input type="submit" value="Create" className="btn btn-primary sm-4" />
@@ -59,20 +59,20 @@ export default class NewAccount extends React.Component<INewAccountProps, INewAc
     private async handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         try {
-            zfaceHelper.add_account(this.state.account_name);
+            zfaceHelper.addAccount(this.state.accountName);
             this.setState({
-                account_name: '',
-                is_open: false,
+                accountName: '',
+                isOpen: false,
             });
-            this.props.after_create();
+            this.props.afterCreate();
         } catch (error) {
             alert(error.message);
         }
     }
 
-    private show_form() {
+    private showForm() {
         this.setState({
-            is_open: true,
+            isOpen: true,
         });
     }
 }
