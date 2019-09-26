@@ -1,5 +1,6 @@
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import ReactTooltip from 'react-tooltip';
 import * as zfaceHelper from '../../zface_helper';
 
 import NewAccount from './new_account';
@@ -51,8 +52,11 @@ export default class Recieve extends React.Component<{}, IRecieve> {
                             <td>{wallet.address}{wallet.isDefault}</td>
                             <td>
                                 <CopyToClipboard text={wallet.address}>
-                                    <a><i className="fas fa-copy fa-lg copy-icon"></i></a>
+                                    <a data-tip="click to copy">
+                                        <i className="fas fa-copy fa-lg copy-icon"></i>
+                                    </a>
                                 </CopyToClipboard>
+                                <ReactTooltip />
                             </td>
                         </tr>,
                         )}
