@@ -35,15 +35,8 @@ export function getWalletList() {
     walletList.sort((w1: WalletInfo, w2: WalletInfo) => {
         const name1 = w1.name;
         const name2 = w2.name;
-        if (w1.isDefault) {
-            return -1;
-        }
-        if (name1 < name2) {
-            return -1;
-        }
-        if (name1 > name2) {
-            return 1;
-        }
+        if (name1 < name2 || w1.isDefault) { return -1; }
+        if (name1 > name2) { return 1; }
         return 0;
     });
     return walletList;
