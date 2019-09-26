@@ -35,25 +35,23 @@ export default class AddressTable extends React.Component<{}, IDashboardState> {
                             <th>Name</th>
                             <th>Address</th>
                             <th></th>
-                            <th>Balance</th>
                         </tr>
                         {this.state.wallets.map((wallet) =>
                             <tr key={wallet.name}>
-                            <td>
-                            {
-                                (() => {
-                                if (wallet.isDefault) {
-                                    return(
-                                    <span className="font-weight-bold" style={{marginRight: '0.25rem'}}>*</span>
-                                    );
+                                <td>
+                                {
+                                    (() => {
+                                    if (wallet.isDefault) {
+                                        return(
+                                        <span className="font-weight-bold" style={{marginRight: '0.25rem'}}>*</span>
+                                        );
+                                    }
+                                    })()
                                 }
-                                })()
-                            }
-                                {wallet.name}
-                            </td>
-                            <td>{wallet.address}{wallet.isDefault}</td>
-                            <td><i className="far fa-copy"></i></td>
-                            <td>*** ZLX</td>
+                                    {wallet.name}
+                                </td>
+                                <td>{wallet.address}{wallet.isDefault}</td>
+                                <td><i className="far fa-copy"></i></td>
                             </tr>,
                         )}
                     </tbody>
