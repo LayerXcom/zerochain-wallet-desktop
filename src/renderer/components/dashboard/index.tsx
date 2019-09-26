@@ -11,7 +11,7 @@ export default class Dashboard extends React.Component<{}, IDashboardState> {
         return (
             <div>
                 <div className="row">
-                    <div className="col-sm-12">
+                    <div className="col-sm-6">
                     <h1>Dashboard</h1>
                         <SummaryCard />
                     </div>

@@ -4,19 +4,7 @@ import * as zfaceHelper from '../../zface_helper';
 import NewAccount from './new_account';
 
 interface IRecieve {
-    wallets: WalletInfo[];
-}
-
-class WalletInfo {
-    public name: string;
-    public address: string;
-    public isDefault: boolean;
-
-    public constructor(name: string, address: string, isDefault: boolean) {
-        this.name = name;
-        this.address = address;
-        this.isDefault = isDefault;
-    }
+    wallets: zfaceHelper.WalletInfo[];
 }
 
 export default class Recieve extends React.Component<{}, IRecieve> {
@@ -56,20 +44,8 @@ export default class Recieve extends React.Component<{}, IRecieve> {
                         {this.state.wallets.map((wallet) =>
                         <tr key={wallet.name}>
                             <td>
-                            {
-                                (() => {
-                                if (wallet.isDefault) {
-                                    return(
-                                        <span
-                                            className="font-weight-bold"
-                                            style={{marginRight: '0.25rem'}}>
-                                                *
-                                        </span>
-                                    );
-                                }
-                                })()
-                            }
-                                {wallet.name}
+                                { wallet.isDefault && <div className="font-weight-bold">*{wallet.name}</div> }
+                                { !wallet.isDefault && <div>{wallet.name}</div> }
                             </td>
                             <td>{wallet.address}{wallet.isDefault}</td>
                             <td><i className="far fa-copy"></i></td>

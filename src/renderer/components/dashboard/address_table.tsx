@@ -2,19 +2,7 @@ import React from 'react';
 import * as zfaceHelper from '../../zface_helper';
 
 interface IDashboardState {
-    wallets: WalletInfo[];
-}
-
-class WalletInfo {
-    public name: string;
-    public address: string;
-    public isDefault: boolean;
-
-    public constructor(name: string, address: string, isDefault: boolean) {
-        this.name = name;
-        this.address = address;
-        this.isDefault = isDefault;
-    }
+    wallets: zfaceHelper.WalletInfo[];
 }
 
 export default class AddressTable extends React.Component<{}, IDashboardState> {
@@ -35,25 +23,15 @@ export default class AddressTable extends React.Component<{}, IDashboardState> {
                             <th>Name</th>
                             <th>Address</th>
                             <th></th>
-                            <th>Balance</th>
                         </tr>
                         {this.state.wallets.map((wallet) =>
                             <tr key={wallet.name}>
-                            <td>
-                            {
-                                (() => {
-                                if (wallet.isDefault) {
-                                    return(
-                                    <span className="font-weight-bold" style={{marginRight: '0.25rem'}}>*</span>
-                                    );
-                                }
-                                })()
-                            }
-                                {wallet.name}
-                            </td>
-                            <td>{wallet.address}{wallet.isDefault}</td>
-                            <td><i className="far fa-copy"></i></td>
-                            <td>*** ZLX</td>
+                                <td>
+                                    { wallet.isDefault && <div className="font-weight-bold">*{wallet.name}</div> }
+                                    { !wallet.isDefault && <div>{wallet.name}</div> }
+                                </td>
+                                <td>{wallet.address}</td>
+                                <td><i className="far fa-copy"></i></td>
                             </tr>,
                         )}
                     </tbody>
