@@ -158,7 +158,7 @@ pub struct WalletInfo {
     isDefault: bool,
 }
 
-pub fn get_wallet_list() -> Result<Vec<WalletInfo>> {
+pub fn get_account_list() -> Result<Vec<WalletInfo>> {
     let root_dir = config::get_default_root_dir();
     let (wallet_dir, keystore_dir) = wallet_keystore_dirs(&root_dir)?;
 

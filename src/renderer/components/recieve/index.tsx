@@ -6,26 +6,26 @@ import * as zfaceHelper from '../../zface_helper';
 import NewAccount from './new_account';
 
 interface IRecieve {
-    wallets: zfaceHelper.WalletInfo[];
+    accounts: zfaceHelper.AccountInfo[];
 }
 
 export default class Recieve extends React.Component<{}, IRecieve> {
     public constructor(props: any) {
         super(props);
         this.state = {
-          wallets: [],
+          accounts: [],
         };
     }
 
     public componentDidMount(): void {
-        this.getWalletList();
+        this.getAccountList();
     }
 
-    public getWalletList(): void {
+    public getAccountList(): void {
         try {
-            const walletList = zfaceHelper.getWalletList();
+            const accountList = zfaceHelper.getAccountList();
             this.setState({
-                wallets: walletList,
+                accounts: accountList,
             });
         } catch (error) {
             alert(error.message);
@@ -43,15 +43,15 @@ export default class Recieve extends React.Component<{}, IRecieve> {
                             <th>Address</th>
                             <th></th>
                         </tr>
-                        {this.state.wallets.map((wallet) =>
-                        <tr key={wallet.name}>
+                        {this.state.accounts.map((account) =>
+                        <tr key={account.name}>
                             <td>
-                                { wallet.isDefault && <div className="font-weight-bold">*{wallet.name}</div> }
-                                { !wallet.isDefault && <div>{wallet.name}</div> }
+                                { account.isDefault && <div className="font-weight-bold">*{account.name}</div> }
+                                { !account.isDefault && <div>{account.name}</div> }
                             </td>
-                            <td>{wallet.address}{wallet.isDefault}</td>
+                            <td>{account.address}{account.isDefault}</td>
                             <td>
-                                <CopyToClipboard text={wallet.address}>
+                                <CopyToClipboard text={account.address}>
                                     <a data-tip="click to copy">
                                         <i className="fas fa-copy fa-lg copy-icon"></i>
                                     </a>
@@ -62,7 +62,7 @@ export default class Recieve extends React.Component<{}, IRecieve> {
                         )}
                     </tbody>
                 </table>
-                <NewAccount afterCreate={this.getWalletList.bind(this)} />
+                <NewAccount afterCreate={this.getAccountList.bind(this)} />
             </div>
         );
     }
