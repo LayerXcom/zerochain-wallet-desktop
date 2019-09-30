@@ -1,7 +1,6 @@
 import React from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import ReactTooltip from 'react-tooltip';
 import * as zfaceHelper from '../../zface_helper';
+import AccountTable from './../accounts/account_table';
 
 import NewAccount from './new_account';
 
@@ -36,33 +35,8 @@ export default class Recieve extends React.Component<{}, IRecieve> {
         return (
             <div>
                 <h1>Recieve</h1>
-                <table className="table">
-                    <tbody>
-                        <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th></th>
-                        </tr>
-                        {this.state.accounts.map((account) =>
-                        <tr key={account.name}>
-                            <td>
-                                { account.isDefault && <div className="font-weight-bold">*{account.name}</div> }
-                                { !account.isDefault && <div>{account.name}</div> }
-                            </td>
-                            <td>{account.address}{account.isDefault}</td>
-                            <td>
-                                <CopyToClipboard text={account.address}>
-                                    <a data-tip="click to copy">
-                                        <i className="fas fa-copy fa-lg copy-icon"></i>
-                                    </a>
-                                </CopyToClipboard>
-                                <ReactTooltip />
-                            </td>
-                        </tr>,
-                        )}
-                    </tbody>
-                </table>
-                <NewAccount afterCreate={this.getAccountList.bind(this)} />
+                <AccountTable accounts={this.state.accounts} />
+                <NewAccount onCreate={this.getAccountList.bind(this)} />
             </div>
         );
     }

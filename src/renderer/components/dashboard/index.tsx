@@ -1,5 +1,5 @@
 import React from 'react';
-import AddressTable from './address_table';
+import Accounts from './accounts';
 import SummaryCard from './summary_card';
 
 interface IDashboardState {
@@ -18,7 +18,8 @@ export default class Dashboard extends React.Component<{}, IDashboardState> {
                 </div>
                 <div className="row">
                     <div className="col-sm-12">
-                        <AddressTable />
+                        <h2>Your Accounts</h2>
+                        <Accounts />
                     </div>
                 </div>
             </div>
