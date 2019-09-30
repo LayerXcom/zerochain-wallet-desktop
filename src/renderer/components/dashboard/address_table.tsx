@@ -2,13 +2,14 @@ import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import ReactTooltip from 'react-tooltip';
 import * as zfaceHelper from '../../zface_helper';
+import AccountSelect from './account_select';
 
-interface IDashboardState {
+interface IAddressStableStates {
     accounts: zfaceHelper.AccountInfo[];
     defaultAccountName: string;
 }
 
-export default class AddressTable extends React.Component<{}, IDashboardState> {
+export default class AddressTable extends React.Component<{}, IAddressStableStates> {
     public constructor(props: any) {
         super(props);
         this.state = {
@@ -16,7 +17,6 @@ export default class AddressTable extends React.Component<{}, IDashboardState> {
           defaultAccountName: '',
         };
         this.getAccountList = this.getAccountList.bind(this);
-        this.changeAccount = this.changeAccount.bind(this);
     }
     public render() {
         return (
@@ -24,21 +24,11 @@ export default class AddressTable extends React.Component<{}, IDashboardState> {
                 <h2>Your Accounts</h2>
                 <div className="row">
                     <div className="col-sm-6">
-                        <form className="form-inline">
-                            <label style={{marginRight: "1.0rem"}}>Current Account: </label>
-                            <select
-                                className="form-control"
-                                onChange={this.changeAccount}
-                                value={this.state.defaultAccountName}
-                            >
-                                {this.state.accounts.map((account) =>
-                                    <option
-                                        key={account.name} value={account.name}>
-                                        {account.name}
-                                    </option>
-                                )}
-                            </select>
-                        </form>
+                        <AccountSelect
+                            onSelect={this.changeAccount.bind(this)}
+                            accounts={this.state.accounts}
+                            defaultAccountName={this.state.defaultAccountName}
+                        />
                     </div>
                 </div>
                 <table className="table">
