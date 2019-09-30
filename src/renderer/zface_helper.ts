@@ -39,14 +39,14 @@ export function getAccountList() {
         if (name1 > name2) { return 1; }
         return 0;
     });
-    walletList.sort((w1: AccountInfo, w2: AccountInfo) => {
+    walletList.sort((w1: AccountInfo, _: AccountInfo) => {
         if (w1.isDefault) { return -1; }
         return 0;
     });
     return walletList;
 }
 
-export function recover(phrases: Array<string>) {
+export function recover(phrases: string[]) {
     const phraseStr = phrases.join(' ');  // white spaces are required.
     return zerochain.recover(phraseStr);
 }

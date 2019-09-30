@@ -11,7 +11,7 @@ export default class AccountSelect extends React.Component<IAddressTableProps, {
     public render() {
         return (
             <form className="form-inline">
-                <label style={{marginRight: "1.0rem"}}>Current Account: </label>
+                <label style={{marginRight: '1.0rem'}}>Current Account: </label>
                 <select
                     className="form-control"
                     onChange={this.props.onSelect}
@@ -21,7 +21,7 @@ export default class AccountSelect extends React.Component<IAddressTableProps, {
                         <option
                             key={account.name} value={account.name}>
                             {account.name}
-                        </option>
+                        </option>,
                     )}
                 </select>
             </form>

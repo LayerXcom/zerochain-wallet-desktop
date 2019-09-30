@@ -2,7 +2,7 @@ import React from 'react';
 import * as zfaceHelper from '../../zface_helper';
 
 interface ISummaryCardProps {
-    account: zfaceHelper.AccountInfo
+    account: zfaceHelper.AccountInfo;
 }
 
 interface ISummaryCardState {
