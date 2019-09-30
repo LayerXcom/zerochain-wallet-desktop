@@ -1,7 +1,7 @@
 import React from 'react';
 import * as zfaceHelper from '../../zface_helper';
-import Accounts from './accounts';
 import AccountSelect from './../accounts/account_select';
+import Accounts from './accounts';
 import SummaryCard from './summary_card';
 
 interface IDashboardState {
