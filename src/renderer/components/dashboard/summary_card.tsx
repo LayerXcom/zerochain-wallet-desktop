@@ -1,11 +1,15 @@
 import React from 'react';
 import * as zfaceHelper from '../../zface_helper';
 
-interface IDashboardState {
+interface ISummaryCardProps {
+    account: zfaceHelper.AccountInfo
+}
+
+interface ISummaryCardState {
     balance: number;
 }
 
-export default class SummaryCard extends React.Component<{}, IDashboardState> {
+export default class SummaryCard extends React.Component<ISummaryCardProps, ISummaryCardState> {
     public constructor(props: any) {
         super(props);
         this.state = {
@@ -20,6 +24,8 @@ export default class SummaryCard extends React.Component<{}, IDashboardState> {
                 <div className="card-body">
                     <div className="row">
                         <div className="col-sm-12">
+                            <span className="small">Current Address:</span>
+                            <p>{this.props.account.address}</p>
                             <span className="small">Current Balance:</span>
                             <div className="total-balance">
                                 {this.state.balance}<span className="unit">ZLX</span>
