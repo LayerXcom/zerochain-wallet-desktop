@@ -22,7 +22,7 @@ export default class SendForm extends React.Component<{}, ISendFormStates> {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <label>Address:</label>
+                        <label>To Address:</label>
                         <input type="text" name="address" value={this.state.address}
                             onChange={this.handleChange} className="form-control" />
                     </div>

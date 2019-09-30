@@ -2,14 +2,18 @@ import React from 'react';
 import * as zfaceHelper from '../../zface_helper';
 
 interface ICurrentStatusStates {
-    balance: any;
+    balance: number;
 }
 
-export default class CurrentStatus extends React.Component<{}, ICurrentStatusStates> {
+interface ICurrentStatusProps {
+    account: zfaceHelper.AccountInfo;
+}
+
+export default class CurrentStatus extends React.Component<ICurrentStatusProps, ICurrentStatusStates> {
     public constructor(props: any) {
         super(props);
         this.state = {
-            balance: null,
+            balance: 0,
         };
     }
 
@@ -21,7 +25,9 @@ export default class CurrentStatus extends React.Component<{}, ICurrentStatusSta
         return (
             <div className="card">
                 <div className="card-body">
-                    <span className="small">Current Balance:</span>
+                    <span className="small">From Address:</span>
+                    <p>{this.props.account.address}</p>
+                    <span className="small">From Address Balance:</span>
                     <p className="font-weight-bold">{this.state.balance} ZLX</p>
                 </div>
             </div>
