@@ -53,8 +53,15 @@ fn recover(mut cx: FunctionContext) -> JsResult<JsString> {
     Ok(cx.string(restored_address))
 }
 
+fn change_default_account(mut cx: FunctionContext) -> JsResult<JsNull> {
+    let account_name = cx.argument::<JsString>(0)?.value();
+    helper::change_account(&account_name);
+    Ok(cx.null())
+}
+
 register_module!(mut m, {
     m.export_function("add_account", new_keyfile)?;
+    m.export_function("change_default_account", change_default_account)?;
     m.export_function("new_wallet", new_wallet)?;
     m.export_function("get_balance", get_balance)?;
     m.export_function("get_account_list", get_account_list)?;

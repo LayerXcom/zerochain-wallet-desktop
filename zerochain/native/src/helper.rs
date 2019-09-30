@@ -6,7 +6,7 @@ use zface::wallet::{
     config::*,
     commands::{
         Mnemonic, MnemonicType, Language, Seed, wallet_keystore_dirs, new_indexfile, get_default_keyfile_name, get_default_index,
-        increment_indexfile, get_max_index
+        increment_indexfile, get_max_index, change_default_account
     },
 };
 use zerochain_proofs::DecryptionKey;
@@ -149,8 +149,6 @@ pub fn recover(phrase_str: &str) -> Result<String> {
     Ok(keyfile.ss58_address)
 }
 
-
-
 #[derive(Serialize)]
 pub struct WalletInfo {
     name: String,
@@ -178,6 +176,13 @@ pub fn get_account_list() -> Result<Vec<WalletInfo>> {
     }
 
     Ok(wallets)
+}
+
+// change default account
+pub fn change_account(account_name: &str) -> Result<()> {
+    let root_dir = config::get_default_root_dir();
+    change_default_account(root_dir, &account_name);
+    Ok(())
 }
 
 // =================

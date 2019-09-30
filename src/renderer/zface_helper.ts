@@ -35,8 +35,12 @@ export function getAccountList() {
     walletList.sort((w1: AccountInfo, w2: AccountInfo) => {
         const name1 = w1.name;
         const name2 = w2.name;
-        if (name1 < name2 || w1.isDefault) { return -1; }
+        if (name1 < name2) { return -1; }
         if (name1 > name2) { return 1; }
+        return 0;
+    });
+    walletList.sort((w1: AccountInfo, w2: AccountInfo) => {
+        if (w1.isDefault) { return -1; }
         return 0;
     });
     return walletList;
@@ -45,4 +49,8 @@ export function getAccountList() {
 export function recover(phrases: Array<string>) {
     const phraseStr = phrases.join(' ');  // white spaces are required.
     return zerochain.recover(phraseStr);
+}
+
+export function changeDefaultAccount(accountName: string): void {
+    zerochain.change_default_account(accountName);
 }
