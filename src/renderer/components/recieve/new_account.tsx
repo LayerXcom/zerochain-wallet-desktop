@@ -7,7 +7,7 @@ interface INewAccountStates {
 }
 
 interface INewAccountProps {
-    afterCreate: () => void;
+    onCreate: () => void;
 }
 
 export default class NewAccount extends React.Component<INewAccountProps, INewAccountStates> {
@@ -64,7 +64,7 @@ export default class NewAccount extends React.Component<INewAccountProps, INewAc
                 accountName: '',
                 isOpen: false,
             });
-            this.props.afterCreate();
+            this.props.onCreate();
         } catch (error) {
             alert(error.message);
         }

@@ -12,10 +12,10 @@ import Recieve from './components/recieve';
 import Send from './components/send';
 import Settings from './components/settings';
 
-import './../css/index.scss';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/regular';
 import '@fortawesome/fontawesome-free/js/solid';
+import './../css/index.scss';
 
 const routes = [
     {

@@ -1,31 +1,30 @@
 import React from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import ReactTooltip from 'react-tooltip';
 import * as zfaceHelper from '../../zface_helper';
+import AccountTable from './../accounts/account_table';
 
 import NewAccount from './new_account';
 
 interface IRecieve {
-    wallets: zfaceHelper.WalletInfo[];
+    accounts: zfaceHelper.AccountInfo[];
 }
 
 export default class Recieve extends React.Component<{}, IRecieve> {
     public constructor(props: any) {
         super(props);
         this.state = {
-          wallets: [],
+          accounts: [],
         };
     }
 
     public componentDidMount(): void {
-        this.getWalletList();
+        this.getAccountList();
     }
 
-    public getWalletList(): void {
+    public getAccountList(): void {
         try {
-            const walletList = zfaceHelper.getWalletList();
+            const accountList = zfaceHelper.getAccountList();
             this.setState({
-                wallets: walletList,
+                accounts: accountList,
             });
         } catch (error) {
             alert(error.message);
@@ -36,33 +35,8 @@ export default class Recieve extends React.Component<{}, IRecieve> {
         return (
             <div>
                 <h1>Recieve</h1>
-                <table className="table">
-                    <tbody>
-                        <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th></th>
-                        </tr>
-                        {this.state.wallets.map((wallet) =>
-                        <tr key={wallet.name}>
-                            <td>
-                                { wallet.isDefault && <div className="font-weight-bold">*{wallet.name}</div> }
-                                { !wallet.isDefault && <div>{wallet.name}</div> }
-                            </td>
-                            <td>{wallet.address}{wallet.isDefault}</td>
-                            <td>
-                                <CopyToClipboard text={wallet.address}>
-                                    <a data-tip="click to copy">
-                                        <i className="fas fa-copy fa-lg copy-icon"></i>
-                                    </a>
-                                </CopyToClipboard>
-                                <ReactTooltip />
-                            </td>
-                        </tr>,
-                        )}
-                    </tbody>
-                </table>
-                <NewAccount afterCreate={this.getWalletList.bind(this)} />
+                <AccountTable accounts={this.state.accounts} />
+                <NewAccount onCreate={this.getAccountList.bind(this)} />
             </div>
         );
     }
