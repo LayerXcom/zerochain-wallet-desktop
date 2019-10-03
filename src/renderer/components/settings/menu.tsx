@@ -16,13 +16,10 @@ export default class SettingsMenu extends React.Component<ISettingsProps> {
                 <h1>Settings</h1>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
-                        <Link to={`${params.url}/backup`}>Backup</Link>
+                        <Link to={`${params.url}/create-wallet`}>Create Wallet</Link>
                     </li>
                     <li className="list-group-item">
                         <Link to={`${params.url}/recovery`}>Recovery</Link>
-                    </li>
-                    <li className="list-group-item">
-                        <Link to={`${params.url}/create-wallet`}>Create Wallet</Link>
                     </li>
                 </ul>
             </div>
